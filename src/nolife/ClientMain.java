@@ -231,11 +231,7 @@ public class ClientMain {
                             makeOpponentMove(msm.move);
                             drawField();
                             isMoving = true;
-                            if(checkField()==symb){
-                                System.out.println("You won");
-                                isPlaying = false;
-                                isMoving = false;
-                            }
+
                             if(isPlaying){
                                 char checkSymb=checkField();
                                 if(checkSymb!=' '){
@@ -393,6 +389,20 @@ public class ClientMain {
                 }
             }else{
                 os.writeObject((MessageMove)msg);
+                if(isPlaying){
+                    char checkSymb=checkField();
+                    if(checkSymb!=' '){
+                        if(checkSymb=='X'){
+                            System.out.println("You won");
+                            isPlaying=false;
+                            isMoving=false;
+                        }else{
+                            System.out.println("You lost");
+                            isPlaying=false;
+                            isMoving=false;
+                        }
+                    }
+                }
             }
             return true;
         }
