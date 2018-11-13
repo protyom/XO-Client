@@ -357,40 +357,43 @@ public class ClientMain {
             throws IOException, ClassNotFoundException {
         if ( msg != null )
         {
-            os.writeObject(msg);
-            Message res = (Message) is.readObject();
+            if(!isPlaying) {
+                os.writeObject(msg);
+                Message res = (Message) is.readObject();
 
-            switch (res.getID()) {
-                case Protocol.CMD_USER:
-                    printUsers(( MessageUserResult ) res);
-                    break;
-                case Protocol.CMD_OFFER:
-                    MessageOffer msg1 = (MessageOffer)res;
-                    if(offer(msg1,in)) {
-                        user2 = msg1.usrNic;
-                        os.writeObject(new MessageOfferResult(msg1.usrNic, msg1.usrToOffer,true));
-                        symb='0';
-                        isMoving = false;
-                        isPlaying = true;
-                        newGame();
-                    }else{
-                        os.writeObject(new MessageOfferResult(msg1.usrNic, msg1.usrToOffer,false));
-                        isPlaying=false;
-                    }
-                    break;
-                case Protocol.CMD_OFFER_RESULT:
-                    MessageOfferResult msg2 = (MessageOfferResult)res;
-                    if(msg2.accepted){
-                        isPlaying=true;
-                        isMoving=true;
-                        symb = 'X';
-                        newGame();
-                    }
-                default:
-                    assert(false);
-                    break;
+                switch (res.getID()) {
+                    case Protocol.CMD_USER:
+                        printUsers((MessageUserResult) res);
+                        break;
+                    case Protocol.CMD_OFFER:
+                        MessageOffer msg1 = (MessageOffer) res;
+                        if (offer(msg1, in)) {
+                            user2 = msg1.usrNic;
+                            os.writeObject(new MessageOfferResult(msg1.usrNic, msg1.usrToOffer, true));
+                            symb = '0';
+                            isMoving = false;
+                            isPlaying = true;
+                            newGame();
+                        } else {
+                            os.writeObject(new MessageOfferResult(msg1.usrNic, msg1.usrToOffer, false));
+                            isPlaying = false;
+                        }
+                        break;
+                    case Protocol.CMD_OFFER_RESULT:
+                        MessageOfferResult msg2 = (MessageOfferResult) res;
+                        if (msg2.accepted) {
+                            isPlaying = true;
+                            isMoving = true;
+                            symb = 'X';
+                            newGame();
+                        }
+                    default:
+                        assert (false);
+                        break;
                 }
-
+            }else{
+                os.writeObject((MessageMove)msg);
+            }
             return true;
         }
         return false;
