@@ -235,7 +235,7 @@ public class ClientMain {
                             if(isPlaying){
                                 char checkSymb=checkField();
                                 if(checkSymb!=' '){
-                                    if(checkSymb=='X'){
+                                    if(checkSymb==symb){
                                         System.out.println("You won");
                                         isPlaying=false;
                                         isMoving=false;
@@ -392,7 +392,7 @@ public class ClientMain {
                 if(isPlaying){
                     char checkSymb=checkField();
                     if(checkSymb!=' '){
-                        if(checkSymb=='X'){
+                        if(checkSymb==symb){
                             System.out.println("You won");
                             isPlaying=false;
                             isMoving=false;
