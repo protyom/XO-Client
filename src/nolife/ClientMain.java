@@ -229,6 +229,7 @@ public class ClientMain {
                             }
                             MessageMove msm = (MessageMove) res;
                             makeOpponentMove(msm.move);
+                            drawField();
                             isMoving = true;
                             if(checkField()==symb){
                                 System.out.println("You won");
@@ -312,12 +313,14 @@ public class ClientMain {
                 System.out.println("Enter your coords");
                 try {
                     String newMove = makeMove(in);
+                    drawField();
+                    isMoving = false;
+                    return new MessageMove(user2,newMove);
                 }catch (IOException e){
                     System.out.println(e.getMessage());
                     continue;
                 }
-                isMoving = false;
-                return new MessageMove(user2,newMove);
+
             }
 
         }
