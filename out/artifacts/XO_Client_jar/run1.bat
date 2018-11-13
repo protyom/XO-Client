@@ -1,0 +1,1 @@
+java -jar XO-Client.jar art artyom localhost
