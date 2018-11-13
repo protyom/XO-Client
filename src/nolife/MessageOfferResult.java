@@ -18,7 +18,7 @@ public class MessageOfferResult extends MessageResult implements Serializable {
 
     public MessageOfferResult(String usrNic,String usrToOffer,boolean accepted) { // No errors
 
-        super( Protocol.CMD_OFFER );
+        super( Protocol.CMD_OFFER_RESULT );
         this.usrNic=usrNic;
         this.usrToOffer=usrToOffer;
         this.accepted = accepted;

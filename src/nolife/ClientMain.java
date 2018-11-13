@@ -223,7 +223,7 @@ public class ClientMain {
                         }else{
                             System.out.println(user2+" makes the move");
                             Message res = (Message) is.readObject();
-                            while(res.getID()!=Protocol.CMD_MOVE) {
+                            while(res.getID()!=Protocol.CMD_MOVE ) {
                                 res = (Message) is.readObject();
 
                             }
@@ -362,7 +362,7 @@ public class ClientMain {
                     printUsers(( MessageUserResult ) res);
                     break;
                 case Protocol.CMD_OFFER:
-                    MessageOffer msg1 = (MessageOffer)msg;
+                    MessageOffer msg1 = (MessageOffer)res;
                     if(offer(msg1,in)) {
                         user2 = msg1.usrNic;
                         os.writeObject(new MessageOfferResult(msg1.usrNic, msg1.usrToOffer,true));
@@ -376,7 +376,7 @@ public class ClientMain {
                     }
                     break;
                 case Protocol.CMD_OFFER_RESULT:
-                    MessageOfferResult msg2 = (MessageOfferResult)msg;
+                    MessageOfferResult msg2 = (MessageOfferResult)res;
                     if(msg2.accepted){
                         isPlaying=true;
                         isMoving=true;
